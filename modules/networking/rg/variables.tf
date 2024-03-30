@@ -1,7 +1,7 @@
 variable "rgname" {
+  type    = string
 }
 
 variable "location" {
-}
-variable "ddosname" {
+  type    = string
 }

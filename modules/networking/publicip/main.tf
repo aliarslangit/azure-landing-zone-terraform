@@ -4,4 +4,5 @@ resource "azurerm_public_ip" "example" {
   resource_group_name = var.rgname
   allocation_method   = var.allocation_method  # or "Static" if you want a static IP
   sku = var.sku
+  domain_name_label = "${var.pip_name}-tierpoint"
 }
