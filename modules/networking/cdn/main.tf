@@ -20,5 +20,4 @@ resource "azurerm_cdn_endpoint" "example" {
     https_port = "443"
   }
 
-  origin_host_header = var.host_header
 }
