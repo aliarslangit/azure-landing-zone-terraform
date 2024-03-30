@@ -1,11 +1,11 @@
 locals {
-  backend_address_pool_name      = "${azurerm_virtual_network.example.name}-beap"
-  frontend_port_name             = "${azurerm_virtual_network.example.name}-feport"
-  frontend_ip_configuration_name = "${azurerm_virtual_network.example.name}-feip"
-  http_setting_name              = "${azurerm_virtual_network.example.name}-be-htst"
-  listener_name                  = "${azurerm_virtual_network.example.name}-httplstn"
-  request_routing_rule_name      = "${azurerm_virtual_network.example.name}-rqrt"
-  redirect_configuration_name    = "${azurerm_virtual_network.example.name}-rdrcfg"
+  backend_address_pool_name      = "backendpool1"
+  frontend_port_name             = "feport1"
+  frontend_ip_configuration_name = "frontendipconfig1"
+  http_setting_name              = "httpsetting1"
+  listener_name                  = "httplistener1"
+  request_routing_rule_name      = "routingrule1"
+  redirect_configuration_name    = "redirectconfigname"
 }
 
 resource "azurerm_application_gateway" "network" {
@@ -26,12 +26,12 @@ resource "azurerm_application_gateway" "network" {
 
   frontend_port {
     name = local.frontend_port_name
-    port = 80
+    port = var.frontend_port
   }
 
   frontend_ip_configuration {
     name                 = local.frontend_ip_configuration_name
-    public_ip_address_id = azurerm_public_ip.example.id
+    public_ip_address_id = var.pip_id
   }
 
   backend_address_pool {
@@ -42,7 +42,7 @@ resource "azurerm_application_gateway" "network" {
     name                  = local.http_setting_name
     cookie_based_affinity = "Disabled"
     path                  = "/path1/"
-    port                  = 80
+    port                  = var.backend_port
     protocol              = "Http"
     request_timeout       = 60
   }
