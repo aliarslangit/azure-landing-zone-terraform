@@ -148,3 +148,17 @@ module "appgw" {
   sku_capacity = "2"
   subnet_id = module.azure-vnet1.subnet_ids["subnet1"]
 }
+
+module "nsg" {
+  source = "./modules/networking/nsg"
+  nsg_name = "vnetnsg"
+  rgname = module.rg.resource_group_name
+  location = "eastus"
+  subnet_id =  module.azure-vnet1.subnet_ids["subnet1"]
+}
+
+module "dns" {
+  source = "./modules/networking/privatedns"
+  dns_domain = "www.tierpoint.com"
+  rgname = module.rg.resource_group_name
+}
